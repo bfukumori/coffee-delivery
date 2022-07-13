@@ -4,8 +4,8 @@ import { CartContainer, CartIcon } from "./styles";
 export function Cart() {
   const [isEmpty, setIsEmpty] = useState(false);
   return (
-    <CartContainer main to="checkout">
-      <CartIcon main size={24} weight="fill" />
+    <CartContainer to="checkout">
+      <CartIcon size={24} weight="fill" />
       {isEmpty && <span>3</span>}
     </CartContainer>
   );

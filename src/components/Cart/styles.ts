@@ -2,11 +2,7 @@ import { ShoppingCartSimple } from "phosphor-react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-interface CartContainerProps {
-  main?: boolean;
-}
-
-export const CartContainer = styled(Link)<CartContainerProps>`
+export const CartContainer = styled(Link)`
   position: relative;
   display: flex;
   align-items: center;
@@ -16,14 +12,9 @@ export const CartContainer = styled(Link)<CartContainerProps>`
   height: 2.375rem;
   padding: 0.5rem;
   border-radius: 6px;
+  border: none;
 
-  background-color: ${(props) =>
-    props.main ? props.theme["yellow-300"] : props.theme["purple-700"]};
-
-  &:hover {
-    background-color: ${(props) =>
-      props.main ? "" : props.theme["purple-500"]};
-  }
+  background-color: ${(props) => props.theme["yellow-300"]};
 
   span {
     position: absolute;
@@ -47,7 +38,6 @@ export const CartContainer = styled(Link)<CartContainerProps>`
   }
 `;
 
-export const CartIcon = styled(ShoppingCartSimple)<CartContainerProps>`
-  color: ${(props) =>
-    props.main ? props.theme["yellow-700"] : props.theme["gray-200"]};
+export const CartIcon = styled(ShoppingCartSimple)`
+  color: ${(props) => props.theme["yellow-700"]};
 `;
