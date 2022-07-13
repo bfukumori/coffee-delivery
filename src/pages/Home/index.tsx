@@ -8,6 +8,8 @@ import {
   HeroTimerIcon,
 } from "./styles";
 
+import { data } from "../../assets/mock-data";
+
 import { HeroContainer, HeroContent, HeroImage } from "./styles";
 
 export function Home() {
@@ -50,12 +52,9 @@ export function Home() {
       <CoffeePortfolioContainer>
         <h2>Nossos cafés</h2>
         <div>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {data.map((item) => (
+            <Card key={item.id} coffee={item} />
+          ))}
         </div>
       </CoffeePortfolioContainer>
     </>

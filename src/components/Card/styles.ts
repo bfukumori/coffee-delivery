@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
+  width: 100%;
   margin-top: 3.375rem;
   background-color: ${(props) => props.theme["gray-200"]};
   padding: 1.25rem 1.5rem;
@@ -14,22 +15,29 @@ export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   img {
     width: 7.5rem;
     height: 7.5rem;
     margin-bottom: 0.75rem;
   }
 
-  span {
-    font-size: 0.625rem;
-    font-weight: 800;
-    line-height: 1.3;
-    text-transform: uppercase;
-    color: ${(props) => props.theme["yellow-700"]};
-    background-color: ${(props) => props.theme["yellow-300"]};
-    padding: 0.25rem 0.5rem;
-    border-radius: 100px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     margin-bottom: 1rem;
+
+    span {
+      font-size: 0.625rem;
+      font-weight: 800;
+      line-height: 1.3;
+      text-transform: uppercase;
+      color: ${(props) => props.theme["yellow-700"]};
+      background-color: ${(props) => props.theme["yellow-300"]};
+      padding: 0.25rem 0.5rem;
+      border-radius: 100px;
+    }
   }
 
   h3 {

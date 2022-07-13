@@ -7,6 +7,13 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  @media screen and (min-width: 960px) {
+    html {
+        margin-left: calc(100vw - 100%);
+        margin-right: 0;
+    }
+}
+
   input, textarea, button, body  {
     font-family: "Roboto",sans-serif;
     font-size: 1rem;

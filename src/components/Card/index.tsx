@@ -1,19 +1,29 @@
+import { Coffee } from "../../assets/mock-data";
+import { formatPrice } from "../../helper/formatPrice";
 import { QuantityInput } from "../QuantityInput";
 import { CardFooter, CardContainer, CardContent, CardPrice } from "./styles";
 
-export function Card() {
+interface CardProps {
+  coffee: Coffee;
+}
+
+export function Card({ coffee }: CardProps) {
   return (
     <CardContainer>
       <CardContent>
-        <img src="./src/assets/images/Expresso.png" alt="" />
-        <span>Tradicional</span>
-        <h3>Expresso Tradicional</h3>
-        <p>O tradicional café feito com água quente e grãos moídos</p>
+        <img src={coffee.img} alt="" />
+        <div>
+          {coffee.type.map((type) => (
+            <span key={type}>{type}</span>
+          ))}
+        </div>
+        <h3>{coffee.title}</h3>
+        <p>{coffee.description}</p>
       </CardContent>
       <CardFooter>
         <CardPrice>
           <span>R$ </span>
-          9,90
+          {formatPrice(coffee.price)}
         </CardPrice>
         <QuantityInput />
       </CardFooter>
