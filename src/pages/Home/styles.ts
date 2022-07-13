@@ -22,9 +22,10 @@ export const HeroBackground = styled.div`
 
 export const HeroContent = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 976px) {
     text-align: center;
     align-items: center;
   }
@@ -59,10 +60,8 @@ export const HeroContent = styled.div`
 `;
 
 export const HeroImage = styled.div`
-  display: block;
-  max-width: 100%;
-
-  @media (max-width: 1000px) {
+  flex: 1;
+  @media (max-width: 976px) {
     display: none;
   }
 `;

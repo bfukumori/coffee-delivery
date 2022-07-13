@@ -7,7 +7,7 @@ export const LayoutContainer = styled.div`
   padding-right: 5rem;
   padding-bottom: 10rem;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 976px) {
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 5rem;
