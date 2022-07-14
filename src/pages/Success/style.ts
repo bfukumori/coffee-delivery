@@ -46,11 +46,35 @@ export const SuccessContentCard = styled.div`
   flex-direction: column;
   gap: 2rem;
   padding: 2.5rem;
-  border: solid 1px red;
   border-top-right-radius: 36px;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 6px;
+
+  // Gradient border ***********
+  position: relative;
+  border: solid 1px transparent;
+  background: ${(props) => props.theme["gray-100"]};
+  background-clip: padding-box;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: inherit;
+    margin: -1px;
+    background: linear-gradient(
+      to right,
+      ${(props) => props.theme["yellow-700"]},
+      ${(props) => props.theme["purple-500"]}
+    );
+    z-index: -1;
+  }
+
+  //*********** Gradient border
 
   & > div {
     display: flex;

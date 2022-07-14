@@ -4,11 +4,12 @@ export const CardContainer = styled.div`
   width: 100%;
   margin-top: 3.375rem;
   background-color: ${(props) => props.theme["gray-200"]};
-  padding: 1.25rem 1.5rem;
+  padding: 8.75rem 1.5rem 1.25rem 1.5rem;
   border-top-right-radius: 36px;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 6px;
+  position: relative;
 `;
 
 export const CardContent = styled.div`
@@ -17,6 +18,8 @@ export const CardContent = styled.div`
   align-items: center;
 
   img {
+    position: absolute;
+    top: -20px;
     width: 7.5rem;
     height: 7.5rem;
     margin-bottom: 0.75rem;

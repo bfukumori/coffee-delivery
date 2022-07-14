@@ -1,6 +1,6 @@
 import { Coffee } from "../../assets/mock-data";
 import { formatPrice } from "../../helper/formatPrice";
-import { QuantityInput } from "../QuantityInput";
+import { AddOrRemoveToCart } from "../AddOrRemoveToCart";
 import { CardFooter, CardContainer, CardContent, CardPrice } from "./styles";
 
 interface CardProps {
@@ -25,7 +25,7 @@ export function Card({ coffee }: CardProps) {
           <span>R$ </span>
           {formatPrice(coffee.price)}
         </CardPrice>
-        <QuantityInput />
+        <AddOrRemoveToCart />
       </CardFooter>
     </CardContainer>
   );
