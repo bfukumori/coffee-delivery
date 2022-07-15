@@ -1,24 +1,102 @@
+import { useState } from "react";
 import { AddOrRemoveToCart } from "../../components/AddOrRemoveToCart";
 import {
   CheckoutContainer,
   CheckoutForm,
-  CheckoutOrder,
+  CheckoutHeading,
   CheckoutOrderButton,
   CheckoutOrderItems,
   CheckoutOrderTotal,
-  CheckoutOrderWrapper,
+  CheckoutOrder,
+  CheckoutFormFieldSet,
+  MapPinIcon,
+  BaseInput,
+  InputFieldsWrapper,
+  CurrencyDollarIcon,
+  RadioInputWrapper,
+  CreditCardIcon,
+  BankIcon,
+  MoneyIcon,
 } from "./styles";
 
 export function Checkout() {
+  const [paymentType, setPaymentType] = useState("");
+
   return (
     <CheckoutContainer>
-      <CheckoutForm>
-        <h2>Complete seu pedido</h2>
-        <form action=""></form>
-      </CheckoutForm>
-      <CheckoutOrder>
-        <h2>Cafés selecionados</h2>
-        <CheckoutOrderWrapper>
+      <div>
+        <CheckoutHeading>Complete seu pedido</CheckoutHeading>
+        <CheckoutForm>
+          <CheckoutFormFieldSet>
+            <MapPinIcon size={22} />
+            <div>
+              <h2>Endereço de Entrega</h2>
+              <p>Informe o endereço onde deseja receber seu pedido</p>
+            </div>
+          </CheckoutFormFieldSet>
+          <InputFieldsWrapper>
+            <BaseInput placeholder="CEP" />
+            <BaseInput placeholder="Rua" />
+            <BaseInput placeholder="Número" />
+            <BaseInput placeholder="Complemento" />
+            <BaseInput placeholder="Bairro" />
+            <BaseInput placeholder="Cidade" />
+            <BaseInput placeholder="UF" maxLength={2} />
+          </InputFieldsWrapper>
+        </CheckoutForm>
+        <CheckoutForm>
+          <CheckoutFormFieldSet>
+            <CurrencyDollarIcon size={22} />
+            <div>
+              <h2>Pagamento</h2>
+              <p>
+                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+              </p>
+            </div>
+          </CheckoutFormFieldSet>
+          <RadioInputWrapper>
+            <input
+              type="radio"
+              name="payment"
+              id="credit"
+              value="CREDIT"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+            <label htmlFor="credit">
+              <CreditCardIcon size={16} />
+              Cartão de crédito
+            </label>
+
+            <input
+              type="radio"
+              name="payment"
+              id="debit"
+              value="DEBIT"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+            <label htmlFor="debit">
+              <BankIcon size={16} />
+              Cartão de débito
+            </label>
+
+            <input
+              type="radio"
+              name="payment"
+              id="money"
+              value="MONEY"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+            <label htmlFor="money">
+              {" "}
+              <MoneyIcon size={16} />
+              Dinheiro
+            </label>
+          </RadioInputWrapper>
+        </CheckoutForm>
+      </div>
+      <div>
+        <CheckoutHeading>Cafés selecionados</CheckoutHeading>
+        <CheckoutOrder>
           <CheckoutOrderItems>
             <img src="./src/assets/images/americano.png" alt="" />
             <div>
@@ -49,11 +127,11 @@ export function Checkout() {
               <span>R$ 33,20</span>
             </div>
           </CheckoutOrderTotal>
-          <CheckoutOrderButton type="button">
+          <CheckoutOrderButton type="submit">
             Confirmar pedido
           </CheckoutOrderButton>
-        </CheckoutOrderWrapper>
-      </CheckoutOrder>
+        </CheckoutOrder>
+      </div>
     </CheckoutContainer>
   );
 }

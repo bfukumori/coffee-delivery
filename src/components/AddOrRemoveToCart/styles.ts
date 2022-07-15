@@ -18,12 +18,7 @@ export const AddOrRemoveToCartContainer = styled.div`
   }
 `;
 
-export const MinusIcon = styled(Minus)`
-  color: ${(props) => props.theme["purple-500"]};
-  cursor: pointer;
-`;
-
-export const PlusIcon = styled(Plus)`
+export const AddRemoveIcon = styled.div`
   color: ${(props) => props.theme["purple-500"]};
   cursor: pointer;
 `;

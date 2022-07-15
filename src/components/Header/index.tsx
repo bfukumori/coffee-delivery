@@ -13,12 +13,10 @@ export function Header() {
         />
       </Link>
       <div>
-        <div>
-          <MapIcon size={24} weight="fill" />
-          <span>Porto Alegre, RS</span>
-        </div>
-        <Cart />
+        <MapIcon size={24} weight="fill" />
+        <span>Porto Alegre, RS</span>
       </div>
+      <Cart />
     </HeaderContainer>
   );
 }

@@ -1,5 +1,5 @@
-import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import styled from "styled-components";
+import { BaseIcon } from "../Home/styles";
 
 export const SuccessContainer = styled.section`
   margin-top: 5rem;
@@ -15,13 +15,12 @@ export const SuccessContainer = styled.section`
   }
 
   img {
-    flex: 1;
+    max-width: 100%;
   }
 `;
 
 export const SuccessContent = styled.div`
   width: 100%;
-  flex: 1;
 
   h1 {
     font-family: "Baloo 2", cursive;
@@ -88,29 +87,10 @@ export const SuccessContentCard = styled.div`
   }
 `;
 
-export const DeliveryIcon = styled(MapPin)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
+export const DeliveryIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["purple-500"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;
 
-export const TimerIcon = styled(Timer)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
-  background-color: ${(props) => props.theme["yellow-500"]};
-  min-width: 2rem;
-  min-height: 2rem;
-`;
-
-export const PaymentIcon = styled(CurrencyDollar)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
+export const PaymentIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["yellow-700"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;

@@ -2,15 +2,17 @@ import { Card } from "../../components/Card";
 import {
   CoffeePortfolioContainer,
   HeroBackground,
-  HeroCartIcon,
-  HeroCoffeeIcon,
-  HeroPackageIcon,
-  HeroTimerIcon,
+  CartIcon,
+  CoffeeIcon,
+  PackageIcon,
+  TimerIcon,
+  CoffeeCatalogue,
 } from "./styles";
 
 import { data } from "../../assets/mock-data";
 
 import { HeroContainer, HeroContent, HeroImage } from "./styles";
+import { Coffee, Package, ShoppingCartSimple, Timer } from "phosphor-react";
 
 export function Home() {
   return (
@@ -25,19 +27,19 @@ export function Home() {
           </p>
           <ul>
             <li>
-              <HeroCartIcon size={16} weight="fill" />
+              <CartIcon as={ShoppingCartSimple} weight="fill" />
               Compra simples e segura
             </li>
             <li>
-              <HeroPackageIcon size={16} weight="fill" />
+              <PackageIcon as={Package} weight="fill" />
               Embalagem mantém o café intacto
             </li>
             <li>
-              <HeroTimerIcon size={16} weight="fill" />
+              <TimerIcon as={Timer} weight="fill" />
               Entrega rápida e rastreada
             </li>
             <li>
-              <HeroCoffeeIcon size={16} weight="fill" />O café chega fresquinho
+              <CoffeeIcon as={Coffee} weight="fill" />O café chega fresquinho
               até você
             </li>
           </ul>
@@ -51,11 +53,11 @@ export function Home() {
       </HeroContainer>
       <CoffeePortfolioContainer>
         <h2>Nossos cafés</h2>
-        <div>
+        <CoffeeCatalogue>
           {data.map((item) => (
             <Card key={item.id} coffee={item} />
           ))}
-        </div>
+        </CoffeeCatalogue>
       </CoffeePortfolioContainer>
     </>
   );

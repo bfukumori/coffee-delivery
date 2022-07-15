@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Coffee, Package, ShoppingCartSimple, Timer } from "phosphor-react";
 
 export const HeroContainer = styled.section`
   display: flex;
@@ -60,56 +59,36 @@ export const HeroContent = styled.div`
 `;
 
 export const HeroImage = styled.div`
-  flex: 1;
   @media (max-width: 976px) {
     display: none;
   }
 `;
 
-export const HeroCartIcon = styled(ShoppingCartSimple)`
-  color: ${(props) => props.theme["gray-100"]};
+export const BaseIcon = styled.div`
   padding: 0.5rem;
   border-radius: 9999px;
+  width: 2rem;
+  height: 2rem;
+  color: ${(props) => props.theme["gray-100"]};
+`;
+
+export const CartIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["yellow-700"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;
 
-export const HeroPackageIcon = styled(Package)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
+export const PackageIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["gray-700"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;
 
-export const HeroTimerIcon = styled(Timer)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
+export const TimerIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["yellow-500"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;
 
-export const HeroCoffeeIcon = styled(Coffee)`
-  color: ${(props) => props.theme["gray-100"]};
-  padding: 0.5rem;
-  border-radius: 9999px;
+export const CoffeeIcon = styled(BaseIcon)`
   background-color: ${(props) => props.theme["purple-500"]};
-  min-width: 2rem;
-  min-height: 2rem;
 `;
 
 export const CoffeePortfolioContainer = styled.section`
-  & > div {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    justify-items: center;
-    gap: 2rem;
-  }
-
   h2 {
     font-family: "Baloo 2", cursive;
     font-weight: 800;
@@ -118,4 +97,11 @@ export const CoffeePortfolioContainer = styled.section`
     color: ${(props) => props.theme["gray-800"]};
     margin-top: 2rem;
   }
+`;
+
+export const CoffeeCatalogue = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  justify-items: center;
+  gap: 2rem;
 `;

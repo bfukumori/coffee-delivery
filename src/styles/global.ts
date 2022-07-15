@@ -35,10 +35,4 @@ export const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
-
-  img {
-    display: block;
-    max-width: 100%;
-    width: 100%;
-  }
 `;

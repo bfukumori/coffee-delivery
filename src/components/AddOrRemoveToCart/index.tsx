@@ -1,10 +1,10 @@
+import { Minus, Plus } from "phosphor-react";
 import { useState } from "react";
 import {
   AddOrRemoveToCartContainer,
+  AddRemoveIcon,
   AddToCartButton,
   AddToCartIcon,
-  MinusIcon,
-  PlusIcon,
   RemoveFromCartButton,
   RemoveFromCartIcon,
 } from "./styles";
@@ -14,21 +14,21 @@ interface AddOrRemoveToCartProps {
 }
 
 export function AddOrRemoveToCart({ isCheckout }: AddOrRemoveToCartProps) {
-  const [quantity, seetQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   return (
     <AddOrRemoveToCartContainer>
       <div>
-        <MinusIcon size={14} weight="bold" />
+        <AddRemoveIcon as={Minus} size={14} weight="bold" />
         {quantity}
-        <PlusIcon size={14} weight="bold" />
+        <AddRemoveIcon as={Plus} size={14} weight="bold" />
       </div>
       {isCheckout ? (
-        <RemoveFromCartButton>
+        <RemoveFromCartButton title="Remove item from cart">
           <RemoveFromCartIcon size={24} />
           Remover
         </RemoveFromCartButton>
       ) : (
-        <AddToCartButton>
+        <AddToCartButton title="Add item to cart">
           <AddToCartIcon size={24} weight="fill" />
         </AddToCartButton>
       )}
