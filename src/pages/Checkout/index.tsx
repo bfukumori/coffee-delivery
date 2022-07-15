@@ -10,7 +10,6 @@ import {
   CheckoutOrder,
   CheckoutFormFieldSet,
   MapPinIcon,
-  BaseInput,
   InputFieldsWrapper,
   CurrencyDollarIcon,
   RadioInputWrapper,
@@ -35,13 +34,13 @@ export function Checkout() {
             </div>
           </CheckoutFormFieldSet>
           <InputFieldsWrapper>
-            <BaseInput placeholder="CEP" />
-            <BaseInput placeholder="Rua" />
-            <BaseInput placeholder="Número" />
-            <BaseInput placeholder="Complemento" />
-            <BaseInput placeholder="Bairro" />
-            <BaseInput placeholder="Cidade" />
-            <BaseInput placeholder="UF" maxLength={2} />
+            <input placeholder="CEP" />
+            <input placeholder="Rua" />
+            <input placeholder="Número" />
+            <input placeholder="Complemento" />
+            <input placeholder="Bairro" />
+            <input placeholder="Cidade" />
+            <input placeholder="UF" maxLength={2} />
           </InputFieldsWrapper>
         </CheckoutForm>
         <CheckoutForm>

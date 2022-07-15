@@ -38,6 +38,21 @@ export const InputFieldsWrapper = styled.div`
   column-gap: 0.75rem;
   position: relative;
 
+  input {
+    font-size: 0.875rem;
+    line-height: 1.3;
+    padding: 0.75rem;
+    background-color: ${(props) => props.theme["gray-300"]};
+    color: ${(props) => props.theme["gray-700"]};
+    border: none;
+    border-radius: 4px;
+    outline-color: ${(props) => props.theme["yellow-700"]};
+
+    &::placeholder {
+      color: ${(props) => props.theme["gray-600"]};
+    }
+  }
+
   & :nth-child(1) {
     width: 35%;
   }
