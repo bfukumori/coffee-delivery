@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AddOrRemoveToCart } from "../../components/AddOrRemoveToCart";
+import { CartContext } from "../../contexts/CartContex";
+import { formatPrice } from "../../helper/formatPrice";
 import {
   CheckoutContainer,
   CheckoutForm,
@@ -19,11 +21,18 @@ import {
 } from "./styles";
 
 export function Checkout() {
+  const { cart, totalItems, totalPrice } = useContext(CartContext);
+
   const [paymentType, setPaymentType] = useState("");
+
+  function handleSubmit() {
+    event?.preventDefault();
+    console.log({ msg: "Formulario enviado", paymentType, cart });
+  }
 
   return (
     <CheckoutContainer>
-      <div>
+      <form onSubmit={handleSubmit} id="order">
         <CheckoutHeading>Complete seu pedido</CheckoutHeading>
         <CheckoutForm>
           <CheckoutFormFieldSet>
@@ -92,30 +101,27 @@ export function Checkout() {
             </label>
           </RadioInputWrapper>
         </CheckoutForm>
-      </div>
+      </form>
       <div>
         <CheckoutHeading>Cafés selecionados</CheckoutHeading>
         <CheckoutOrder>
-          <CheckoutOrderItems>
-            <img src="./src/assets/images/americano.png" alt="" />
-            <div>
-              <h3>Expresso Tradicional</h3>
-              <AddOrRemoveToCart isCheckout />
-            </div>
-            <span>R$ 9,90</span>
-          </CheckoutOrderItems>
-          <CheckoutOrderItems>
-            <img src="./src/assets/images/americano.png" alt="" />
-            <div>
-              <h3>Expresso Tradicional</h3>
-              <AddOrRemoveToCart isCheckout />
-            </div>
-            <span>R$ 9,90</span>
-          </CheckoutOrderItems>
+          {cart.items.map((item) => (
+            <CheckoutOrderItems key={item.data.id}>
+              <img src="./src/assets/images/americano.png" alt="" />
+              <div>
+                <h3>Expresso Tradicional</h3>
+                <AddOrRemoveToCart itemId={item.data.id} isCheckout />
+              </div>
+              <span>Qt: {item.quantity}</span>
+              <span>
+                {formatPrice({ price: item.data.unitPrice, checkout: true })}
+              </span>
+            </CheckoutOrderItems>
+          ))}
           <CheckoutOrderTotal>
             <div>
               <p>Total de itens</p>
-              <span>R$ 29,70</span>
+              <span>{totalItems}</span>
             </div>
             <div>
               <p>Entrega</p>
@@ -123,10 +129,10 @@ export function Checkout() {
             </div>
             <div>
               <p>Total</p>
-              <span>R$ 33,20</span>
+              <span>{formatPrice({ price: totalPrice, checkout: true })}</span>
             </div>
           </CheckoutOrderTotal>
-          <CheckoutOrderButton type="submit">
+          <CheckoutOrderButton type="submit" form="order">
             Confirmar pedido
           </CheckoutOrderButton>
         </CheckoutOrder>

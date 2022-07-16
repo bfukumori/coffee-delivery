@@ -7,7 +7,7 @@ import {
 } from "phosphor-react";
 import styled from "styled-components";
 
-export const CheckoutContainer = styled.form`
+export const CheckoutContainer = styled.div`
   margin-top: 2.5rem;
   display: grid;
   grid-template-columns: 3fr 2fr;
@@ -36,7 +36,6 @@ export const InputFieldsWrapper = styled.div`
   flex-wrap: wrap;
   row-gap: 1rem;
   column-gap: 0.75rem;
-  position: relative;
 
   input {
     font-size: 0.875rem;
@@ -55,24 +54,39 @@ export const InputFieldsWrapper = styled.div`
 
   & :nth-child(1) {
     width: 35%;
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
   & :nth-child(2) {
     width: 100%;
   }
   & :nth-child(3) {
     width: 35%;
+    @media (max-width: 480px) {
+      width: 50%;
+    }
   }
   & :nth-child(4) {
     width: calc(65% - 0.75rem);
+    @media (max-width: 480px) {
+      width: calc(50% - 0.75rem);
+    }
   }
   & :nth-child(5) {
     width: 35%;
   }
   & :nth-child(6) {
     width: 48%;
+    @media (max-width: 480px) {
+      width: 35%;
+    }
   }
   & :nth-child(7) {
     width: calc(17% - 1.5rem);
+    @media (max-width: 480px) {
+      width: calc(30% - 1.5rem);
+    }
   }
 `;
 
@@ -120,6 +134,7 @@ export const BaseInput = styled.input`
 
 export const RadioInputWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 
   label {
@@ -177,7 +192,8 @@ export const CheckoutOrder = styled(BaseWrapper)`
 
 export const CheckoutOrderItems = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+
   border-bottom: 1px solid ${(props) => props.theme["gray-400"]};
   gap: 1.25rem;
   padding-bottom: 2rem;
@@ -189,6 +205,10 @@ export const CheckoutOrderItems = styled.div`
   img {
     width: 4rem;
     height: 4rem;
+
+    @media (max-width: 480px) {
+      display: none;
+    }
   }
 
   h3 {
@@ -199,10 +219,14 @@ export const CheckoutOrderItems = styled.div`
     margin-bottom: 0.5rem;
   }
 
-  span {
-    font-weight: 700;
-    margin-left: auto;
+  span:first-of-type {
+    font-size: 0.75rem;
     align-self: flex-start;
+    margin: 0 auto;
+  }
+
+  span:last-child {
+    font-weight: 700;
   }
 `;
 

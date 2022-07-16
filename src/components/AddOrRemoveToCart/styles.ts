@@ -1,4 +1,3 @@
-import { Minus, Plus, ShoppingCartSimple, Trash } from "phosphor-react";
 import styled from "styled-components";
 
 export const AddOrRemoveToCartContainer = styled.div`
@@ -18,32 +17,39 @@ export const AddOrRemoveToCartContainer = styled.div`
   }
 `;
 
-export const AddRemoveIcon = styled.div`
+export const QuantityButton = styled.button`
   color: ${(props) => props.theme["purple-500"]};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 export const AddToCartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 2.375rem;
-  height: 2.375rem;
   padding: 0.5rem;
   border-radius: 6px;
   border: none;
-
+  cursor: pointer;
+  color: ${(props) => props.theme["gray-200"]};
   background-color: ${(props) => props.theme["purple-700"]};
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme["purple-500"]};
   }
-`;
 
-export const AddToCartIcon = styled(ShoppingCartSimple)`
-  color: ${(props) => props.theme["gray-200"]};
-  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 export const RemoveFromCartButton = styled.button`
@@ -54,17 +60,17 @@ export const RemoveFromCartButton = styled.button`
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  color: ${(props) => props.theme["gray-700"]};
   font-size: 0.75rem;
   text-transform: uppercase;
-
   background-color: ${(props) => props.theme["gray-400"]};
+
+  & :first-child {
+    color: ${(props) => props.theme["purple-500"]};
+    margin-right: 0.25rem;
+  }
 
   &:hover {
     background-color: ${(props) => props.theme["gray-500"]};
   }
-`;
-
-export const RemoveFromCartIcon = styled(Trash)`
-  color: ${(props) => props.theme["purple-500"]};
-  margin-right: 0.25rem;
 `;

@@ -23,9 +23,9 @@ export function Card({ coffee }: CardProps) {
       <CardFooter>
         <CardPrice>
           <span>R$ </span>
-          {formatPrice(coffee.price)}
+          {formatPrice({ price: coffee.unitPrice })}
         </CardPrice>
-        <AddOrRemoveToCart />
+        <AddOrRemoveToCart itemId={coffee.id} />
       </CardFooter>
     </CardContainer>
   );

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContex";
 import { CartContainer, CartIcon } from "./styles";
 
 export function Cart() {
-  const [isEmpty, setIsEmpty] = useState(false);
+  const { cart, totalItems } = useContext(CartContext);
+
   return (
     <CartContainer title="Link to checkout" to="checkout">
       <CartIcon size={24} weight="fill" />
-      {isEmpty && <span>3</span>}
+      {cart.items.length !== 0 && <span>{totalItems}</span>}
     </CartContainer>
   );
 }
