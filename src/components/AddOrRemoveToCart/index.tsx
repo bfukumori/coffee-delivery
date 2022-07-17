@@ -43,7 +43,7 @@ export function AddOrRemoveToCart({
       <div>
         <QuantityButton
           onClick={isCheckout ? () => decrementItem(itemId) : decrease}
-          disabled={itemQuantity! <= 0}
+          disabled={isCheckout ? itemQuantity! <= 0 : quantity <= 0}
         >
           <Minus weight="bold" />
         </QuantityButton>

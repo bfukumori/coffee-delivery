@@ -20,6 +20,9 @@ export interface CartState {
 export function CartReducer(state: CartState, action: CartAction): CartState {
   const { type, payload } = action;
   const itemInCart = state.items.find((item) => item.id === payload.id);
+  const cartWithoutDeletedItem = state.items.filter(
+    (item) => item.id !== payload.id
+  );
 
   switch (type) {
     case "ADD_TO_CART":
@@ -38,9 +41,6 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
       }
 
     case "REMOVE_FROM_CART":
-      const cartWithoutDeletedItem = state.items.filter(
-        (item) => item.id !== payload.id
-      );
       return {
         ...state,
         items: cartWithoutDeletedItem,
@@ -48,6 +48,12 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
     case "DECREMENT_ITEM":
       if (itemInCart) {
         itemInCart.quantity -= 1;
+        if (itemInCart.quantity <= 0) {
+          return {
+            ...state,
+            items: cartWithoutDeletedItem,
+          };
+        }
         return {
           ...state,
         };
