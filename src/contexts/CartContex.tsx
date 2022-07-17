@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useCallback, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
+import { v4 as uuidV4 } from "uuid";
 import { Coffee } from "../assets/mock-data";
 import {
   addToCartAction,
@@ -19,7 +20,7 @@ interface CartContextData {
 }
 
 export interface Cart {
-  id: string | null;
+  id: string;
   items: CartItem[];
 }
 
@@ -32,14 +33,16 @@ interface CartContextProviderProps {
 }
 
 const initialValue: CartState = {
-  id: null,
+  id: uuidV4(),
   items: [],
 };
 
-function init(initialValue: CartState) {
-  const storedJSON = localStorage.getItem("@coffee-delivery:cart");
-  if (storedJSON) {
-    return JSON.parse(storedJSON);
+function init() {
+  const storedStateAsJSON = localStorage.getItem(
+    "@coffee-delivery:cart-state-1.0.0"
+  );
+  if (storedStateAsJSON) {
+    return JSON.parse(storedStateAsJSON);
   }
   return initialValue;
 }
@@ -77,6 +80,15 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   function decrementItem(id: string) {
     dispatch(decrementItemAction(id));
   }
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cart);
+    if (cart.items.length !== 0) {
+      localStorage.setItem("@coffee-delivery:cart-state-1.0.0", stateJSON);
+    } else if (cart.items.length === 0) {
+      localStorage.removeItem("@coffee-delivery:cart-state-1.0.0");
+    }
+  }, [cart]);
 
   return (
     <CartContext.Provider

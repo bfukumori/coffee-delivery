@@ -13,7 +13,7 @@ export interface CartAction {
 }
 
 export interface CartState {
-  id: string | null;
+  id: string;
   items: CartItem[];
 }
 

@@ -1,4 +1,6 @@
+import { ShoppingCart } from "phosphor-react";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AddOrRemoveToCart } from "../../components/AddOrRemoveToCart";
 import { CartContext } from "../../contexts/CartContex";
 import { formatPrice } from "../../helper/formatPrice";
@@ -19,6 +21,7 @@ import {
   BankIcon,
   MoneyIcon,
   FreeShippingFee,
+  EmptyCheckout,
 } from "./styles";
 
 export function Checkout() {
@@ -36,8 +39,8 @@ export function Checkout() {
   }
 
   return (
-    <CheckoutContainer>
-      <form onSubmit={handleSubmit} id="order">
+    <CheckoutContainer formIsHidden={cart.items.length === 0}>
+      <form onSubmit={handleSubmit} id="order" hidden={cart.items.length === 0}>
         <CheckoutHeading>Complete seu pedido</CheckoutHeading>
         <CheckoutForm>
           <CheckoutFormFieldSet>
@@ -109,49 +112,64 @@ export function Checkout() {
       </form>
       <div>
         <CheckoutHeading>Cafés selecionados</CheckoutHeading>
-        <CheckoutOrder>
-          {cart.items.map((item) => (
-            <CheckoutOrderItems key={item.id}>
-              <img src={item.img} alt={item.description} />
-              <div>
-                <h3>{item.title}</h3>
-                <AddOrRemoveToCart itemId={item.id} isCheckout />
-              </div>
-              <span>Qt: {item.quantity}</span>
-              <span>
-                {formatPrice({ price: item.unitPrice, checkout: true })}
-              </span>
-            </CheckoutOrderItems>
-          ))}
-          <CheckoutOrderTotal>
-            <div>
-              <p>Total de itens</p>
-              <span>{totalItemsInCart}</span>
-            </div>
-            <div>
-              <p>Entrega</p>
-              {shippingFee === 0 ? (
-                <FreeShippingFee>free</FreeShippingFee>
-              ) : (
+        {cart.items.length === 0 ? (
+          <CheckoutOrder>
+            <EmptyCheckout>
+              <ShoppingCart size={48} />
+              <p>Seu carrinho está vazio.</p>
+              <p>Que tal adicionar alguns deliciosos cafés?</p>
+              <Link to="/">Ir para o catálogo</Link>
+            </EmptyCheckout>
+          </CheckoutOrder>
+        ) : (
+          <CheckoutOrder>
+            {cart.items.map((item) => (
+              <CheckoutOrderItems key={item.id}>
+                <img src={item.img} alt={item.description} />
+                <div>
+                  <h3>{item.title}</h3>
+                  <AddOrRemoveToCart itemId={item.id} isCheckout />
+                </div>
+                <span>Qt: {item.quantity}</span>
                 <span>
-                  {formatPrice({
-                    price: shippingFee,
-                    checkout: true,
-                  })}
+                  {formatPrice({ price: item.unitPrice, checkout: true })}
                 </span>
-              )}
-            </div>
-            <div>
-              <p>Total</p>
-              <span>
-                {formatPrice({ price: totalAmountPlusFee, checkout: true })}
-              </span>
-            </div>
-          </CheckoutOrderTotal>
-          <CheckoutOrderButton type="submit" form="order">
-            Confirmar pedido
-          </CheckoutOrderButton>
-        </CheckoutOrder>
+              </CheckoutOrderItems>
+            ))}
+            <CheckoutOrderTotal>
+              <div>
+                <p>Total de itens</p>
+                <span>{totalItemsInCart}</span>
+              </div>
+              <div>
+                <p>Entrega</p>
+                {shippingFee === 0 ? (
+                  <FreeShippingFee>free</FreeShippingFee>
+                ) : (
+                  <span>
+                    {formatPrice({
+                      price: shippingFee,
+                      checkout: true,
+                    })}
+                  </span>
+                )}
+              </div>
+              <div>
+                <p>Total</p>
+                <span>
+                  {formatPrice({ price: totalAmountPlusFee, checkout: true })}
+                </span>
+              </div>
+            </CheckoutOrderTotal>
+            <CheckoutOrderButton
+              type="submit"
+              form="order"
+              disabled={cart.items.length === 0}
+            >
+              Confirmar pedido
+            </CheckoutOrderButton>
+          </CheckoutOrder>
+        )}
       </div>
     </CheckoutContainer>
   );

@@ -7,11 +7,20 @@ import {
 } from "phosphor-react";
 import styled from "styled-components";
 
-export const CheckoutContainer = styled.div`
+interface CheckoutContainerProps {
+  formIsHidden: boolean;
+}
+
+export const CheckoutContainer = styled.div<CheckoutContainerProps>`
   margin-top: 2.5rem;
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: 2rem;
+
+  ${(props) =>
+    props.formIsHidden
+      ? { gridTemplateColumns: "1fr" }
+      : { gridTemplateColumns: "3fr 2fr" }}
 
   @media (max-width: 1200px) {
     grid-template-columns: 1fr;
@@ -190,6 +199,37 @@ export const CheckoutOrder = styled(BaseWrapper)`
   border-bottom-left-radius: 36px;
 `;
 
+export const EmptyCheckout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  display: 100%;
+
+  & :first-child {
+    color: ${(props) => props.theme["gray-600"]};
+  }
+
+  a {
+    margin-top: 2rem;
+    text-decoration: none;
+    display: block;
+    padding: 0.75rem 0.5rem;
+    border-radius: 6px;
+    background-color: ${(props) => props.theme["yellow-500"]};
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: ${(props) => props.theme.white};
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${(props) => props.theme["yellow-700"]};
+    }
+  }
+`;
+
 export const CheckoutOrderItems = styled.div`
   display: flex;
   align-items: flex-start;
@@ -266,7 +306,12 @@ export const CheckoutOrderButton = styled.button`
   color: ${(props) => props.theme.white};
   cursor: pointer;
 
-  &:hover {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme["yellow-700"]};
   }
 `;
