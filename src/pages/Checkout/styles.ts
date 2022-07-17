@@ -249,6 +249,11 @@ export const CheckoutOrderTotal = styled.div`
   }
 `;
 
+export const FreeShippingFee = styled.span`
+  font-style: italic;
+  color: green;
+`;
+
 export const CheckoutOrderButton = styled.button`
   width: 100%;
   padding: 0.75rem 0.5rem;

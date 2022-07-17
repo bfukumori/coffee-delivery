@@ -1,6 +1,5 @@
+import { useContext, useEffect, useState } from "react";
 import { Minus, Plus, ShoppingCartSimple, Trash } from "phosphor-react";
-import { useContext, useState } from "react";
-import { data } from "../../assets/mock-data";
 import { CartContext } from "../../contexts/CartContex";
 
 import {
@@ -15,23 +14,15 @@ interface AddOrRemoveToCartProps {
   itemId: string;
 }
 
-interface Cart {
-  id: string;
-  items: CartItem[];
-}
-
-interface CartItem {
-  id: string;
-  quantity: number;
-}
-
 export function AddOrRemoveToCart({
   isCheckout,
   itemId,
 }: AddOrRemoveToCartProps) {
-  const { cart, setCart } = useContext(CartContext);
-
+  const { cart, addToCart, removeFromCart, incrementItem, decrementItem } =
+    useContext(CartContext);
   const [quantity, setQuantity] = useState(0);
+
+  const itemQuantity = cart.items.find((item) => item.id === itemId)?.quantity;
 
   function increase() {
     setQuantity((value) => value + 1);
@@ -42,48 +33,40 @@ export function AddOrRemoveToCart({
     }
     setQuantity((value) => value - 1);
   }
-  function addToCart(id: string) {
-    const itemAlreadyInCart = cart.items.find((item) => item.data.id === id);
-    if (itemAlreadyInCart) {
-      itemAlreadyInCart.quantity += quantity;
-      setCart((value: Cart) => {
-        return {
-          ...value,
-        };
-      });
-    } else {
-      const itemInfo = data.find((item) => item.id === id);
-      const newItem = { data: itemInfo, quantity };
-      setCart((value: Cart) => {
-        return {
-          ...value,
-          items: [...value.items, newItem],
-        };
-      });
-    }
-  }
+
+  useEffect(() => {
+    setQuantity(0);
+  }, [addToCart]);
 
   return (
     <AddOrRemoveToCartContainer>
       <div>
-        <QuantityButton onClick={decrease} disabled={quantity <= 0}>
+        <QuantityButton
+          onClick={isCheckout ? () => decrementItem(itemId) : decrease}
+          disabled={itemQuantity! <= 0}
+        >
           <Minus weight="bold" />
         </QuantityButton>
-        {quantity}
-        <QuantityButton onClick={increase}>
+        {isCheckout ? itemQuantity : quantity}
+        <QuantityButton
+          onClick={isCheckout ? () => incrementItem(itemId) : increase}
+        >
           <Plus weight="bold" />
         </QuantityButton>
       </div>
       {isCheckout ? (
-        <RemoveFromCartButton title="Remove item from cart">
+        <RemoveFromCartButton
+          title="Remove item do carrinho"
+          onClick={() => removeFromCart(itemId)}
+        >
           <Trash size={24} />
           Remover
         </RemoveFromCartButton>
       ) : (
         <AddToCartButton
-          title="Add item to cart"
-          onClick={() => addToCart(itemId)}
-          disabled={quantity <= 0}
+          title="Adiciona item ao carrinho"
+          onClick={() => addToCart(itemId, quantity)}
+          disabled={itemQuantity! <= 0}
         >
           <ShoppingCartSimple size={24} weight="fill" />
         </AddToCartButton>

@@ -18,12 +18,17 @@ import {
   CreditCardIcon,
   BankIcon,
   MoneyIcon,
+  FreeShippingFee,
 } from "./styles";
 
 export function Checkout() {
-  const { cart, totalItems, totalPrice } = useContext(CartContext);
+  const { cart, totalItemsInCart, totalPriceInCart } = useContext(CartContext);
+
+  const [shippingFee, setShippingFee] = useState(0);
 
   const [paymentType, setPaymentType] = useState("");
+
+  const totalAmountPlusFee = totalPriceInCart + shippingFee;
 
   function handleSubmit() {
     event?.preventDefault();
@@ -106,30 +111,41 @@ export function Checkout() {
         <CheckoutHeading>Cafés selecionados</CheckoutHeading>
         <CheckoutOrder>
           {cart.items.map((item) => (
-            <CheckoutOrderItems key={item.data.id}>
-              <img src="./src/assets/images/americano.png" alt="" />
+            <CheckoutOrderItems key={item.id}>
+              <img src={item.img} alt={item.description} />
               <div>
-                <h3>Expresso Tradicional</h3>
-                <AddOrRemoveToCart itemId={item.data.id} isCheckout />
+                <h3>{item.title}</h3>
+                <AddOrRemoveToCart itemId={item.id} isCheckout />
               </div>
               <span>Qt: {item.quantity}</span>
               <span>
-                {formatPrice({ price: item.data.unitPrice, checkout: true })}
+                {formatPrice({ price: item.unitPrice, checkout: true })}
               </span>
             </CheckoutOrderItems>
           ))}
           <CheckoutOrderTotal>
             <div>
               <p>Total de itens</p>
-              <span>{totalItems}</span>
+              <span>{totalItemsInCart}</span>
             </div>
             <div>
               <p>Entrega</p>
-              <span>R$ 3,50</span>
+              {shippingFee === 0 ? (
+                <FreeShippingFee>free</FreeShippingFee>
+              ) : (
+                <span>
+                  {formatPrice({
+                    price: shippingFee,
+                    checkout: true,
+                  })}
+                </span>
+              )}
             </div>
             <div>
               <p>Total</p>
-              <span>{formatPrice({ price: totalPrice, checkout: true })}</span>
+              <span>
+                {formatPrice({ price: totalAmountPlusFee, checkout: true })}
+              </span>
             </div>
           </CheckoutOrderTotal>
           <CheckoutOrderButton type="submit" form="order">

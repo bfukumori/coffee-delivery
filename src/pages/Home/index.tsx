@@ -1,3 +1,4 @@
+import { Coffee, Package, ShoppingCartSimple, Timer } from "phosphor-react";
 import { Card } from "../../components/Card";
 import {
   CoffeePortfolioContainer,
@@ -7,12 +8,12 @@ import {
   PackageIcon,
   TimerIcon,
   CoffeeCatalogue,
+  HeroContainer,
+  HeroContent,
+  HeroImage,
 } from "./styles";
 
 import { data } from "../../assets/mock-data";
-
-import { HeroContainer, HeroContent, HeroImage } from "./styles";
-import { Coffee, Package, ShoppingCartSimple, Timer } from "phosphor-react";
 
 export function Home() {
   return (

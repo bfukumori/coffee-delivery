@@ -7,7 +7,7 @@ export interface Coffee {
   img: string;
 }
 
-export enum CoffeeType {
+enum CoffeeType {
   TRADICIONAL = "Tradicional",
   GELADO = "Gelado",
   COM_LEITE = "Com leite",
