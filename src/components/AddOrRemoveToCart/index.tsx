@@ -20,7 +20,7 @@ export function AddOrRemoveToCart({
 }: AddOrRemoveToCartProps) {
   const { cart, addToCart, removeFromCart, incrementItem, decrementItem } =
     useContext(CartContext);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const itemQuantity = cart.items.find((item) => item.id === itemId)?.quantity;
 
@@ -28,14 +28,11 @@ export function AddOrRemoveToCart({
     setQuantity((value) => value + 1);
   }
   function decrease() {
-    if (quantity <= 0) {
-      return null;
-    }
     setQuantity((value) => value - 1);
   }
 
   useEffect(() => {
-    setQuantity(0);
+    setQuantity(1);
   }, [addToCart]);
 
   return (
@@ -43,7 +40,7 @@ export function AddOrRemoveToCart({
       <div>
         <QuantityButton
           onClick={isCheckout ? () => decrementItem(itemId) : decrease}
-          disabled={isCheckout ? itemQuantity! <= 0 : quantity <= 0}
+          disabled={isCheckout ? itemQuantity === 0 : quantity === 1}
         >
           <Minus weight="bold" />
         </QuantityButton>
@@ -66,7 +63,7 @@ export function AddOrRemoveToCart({
         <AddToCartButton
           title="Adiciona item ao carrinho"
           onClick={() => addToCart(itemId, quantity)}
-          disabled={itemQuantity! <= 0}
+          disabled={itemQuantity! === 0}
         >
           <ShoppingCartSimple size={24} weight="fill" />
         </AddToCartButton>

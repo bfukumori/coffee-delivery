@@ -20,9 +20,6 @@ export interface CartState {
 export function CartReducer(state: CartState, action: CartAction): CartState {
   const { type, payload } = action;
   const itemInCart = state.items.find((item) => item.id === payload.id);
-  const cartWithoutDeletedItem = state.items.filter(
-    (item) => item.id !== payload.id
-  );
 
   switch (type) {
     case "ADD_TO_CART":
@@ -43,28 +40,29 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        items: cartWithoutDeletedItem,
+        items: state.items.filter((item) => item.id !== payload.id),
       };
-    case "DECREMENT_ITEM":
-      if (itemInCart) {
-        itemInCart.quantity -= 1;
-        if (itemInCart.quantity <= 0) {
-          return {
-            ...state,
-            items: cartWithoutDeletedItem,
-          };
-        }
-        return {
-          ...state,
-        };
-      }
-    case "INCREMENT_ITEM":
-      if (itemInCart) {
-        itemInCart.quantity += 1;
-        return {
-          ...state,
-        };
-      }
+
+    // case "DECREMENT_ITEM":
+    //   if (itemInCart) {
+    //     itemInCart.quantity -= 1;
+    //     if (itemInCart.quantity <= 0) {
+    //       return {
+    //         ...state,
+    //         items: state.items.filter((item) => item.id !== payload.id),
+    //       };
+    //     }
+    //     return {
+    //       ...state,
+    //     };
+    //   }
+    // case "INCREMENT_ITEM":
+    //   if (itemInCart) {
+    //     itemInCart.quantity += 1;
+    //     return {
+    //       ...state,
+    //     };
+    //   }
 
     default:
       return state;

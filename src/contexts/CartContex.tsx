@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { Coffee } from "../assets/mock-data";
+import { CoffeeType } from "../assets/mock-data";
 import {
   addToCartAction,
   decrementItemAction,
@@ -24,7 +24,13 @@ export interface Cart {
   items: CartItem[];
 }
 
-export interface CartItem extends Coffee {
+export interface CartItem {
+  id: string;
+  title: string;
+  description: string;
+  type: CoffeeType[];
+  unitPrice: number;
+  img: string;
   quantity: number;
 }
 
