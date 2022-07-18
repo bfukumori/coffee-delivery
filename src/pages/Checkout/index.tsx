@@ -1,9 +1,11 @@
 import { ShoppingCart } from "phosphor-react";
 import { useContext, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AddOrRemoveToCart } from "../../components/AddOrRemoveToCart";
 import { CartContext } from "../../contexts/CartContex";
 import { formatPrice } from "../../helper/formatPrice";
+import { useCep } from "../../hooks/useCep";
 import {
   CheckoutContainer,
   CheckoutForm,
@@ -24,23 +26,40 @@ import {
   EmptyCheckout,
 } from "./styles";
 
+interface IFormInput {
+  cep: string;
+  address: string;
+  address_number: string;
+  address_complement: string;
+  address_neighborhood: string;
+  city: string;
+  state: string;
+  payment: string;
+}
+
 export function Checkout() {
   const { cart, totalItemsInCart, totalPriceInCart } = useContext(CartContext);
-
+  const [cep, setCep] = useState("");
   const [shippingFee, setShippingFee] = useState(0);
 
-  const [paymentType, setPaymentType] = useState("");
+  const { cepInfo, loading } = useCep(cep);
 
   const totalAmountPlusFee = totalPriceInCart + shippingFee;
 
-  function handleSubmit() {
-    event?.preventDefault();
-    console.log({ msg: "Formulario enviado", paymentType, cart });
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
   return (
     <CheckoutContainer formIsHidden={cart.items.length === 0}>
-      <form onSubmit={handleSubmit} id="order" hidden={cart.items.length === 0}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        id="order"
+        hidden={cart.items.length === 0}
+      >
         <CheckoutHeading>Complete seu pedido</CheckoutHeading>
         <CheckoutForm>
           <CheckoutFormFieldSet>
@@ -51,13 +70,43 @@ export function Checkout() {
             </div>
           </CheckoutFormFieldSet>
           <InputFieldsWrapper>
-            <input placeholder="CEP" />
-            <input placeholder="Rua" />
-            <input placeholder="Número" />
-            <input placeholder="Complemento" />
-            <input placeholder="Bairro" />
-            <input placeholder="Cidade" />
-            <input placeholder="UF" maxLength={2} />
+            <input
+              {...register("cep", {
+                value: cep,
+                onBlur: (e) => setCep(e.target.value),
+              })}
+              placeholder="CEP"
+            />
+            <input
+              {...register("address", {
+                value: cepInfo.address,
+              })}
+              placeholder="Rua"
+            />
+            <input {...register("address_number")} placeholder="Número" />
+            <input
+              {...register("address_complement")}
+              placeholder="Complemento"
+            />
+            <input
+              {...register("address_neighborhood", {
+                value: cepInfo.district,
+              })}
+              placeholder="Bairro"
+            />
+            <input
+              {...register("city", {
+                value: cepInfo.city,
+              })}
+              placeholder="Cidade"
+            />
+            <input
+              {...register("state", {
+                value: cepInfo.state,
+              })}
+              placeholder="UF"
+              maxLength={2}
+            />
           </InputFieldsWrapper>
         </CheckoutForm>
         <CheckoutForm>
@@ -72,11 +121,12 @@ export function Checkout() {
           </CheckoutFormFieldSet>
           <RadioInputWrapper>
             <input
+              {...register("payment", {
+                required: "Escolha um método de pagamento",
+              })}
               type="radio"
-              name="payment"
               id="credit"
               value="CREDIT"
-              onChange={(e) => setPaymentType(e.target.value)}
             />
             <label htmlFor="credit">
               <CreditCardIcon size={16} />
@@ -84,11 +134,12 @@ export function Checkout() {
             </label>
 
             <input
+              {...register("payment", {
+                required: "Escolha um método de pagamento",
+              })}
               type="radio"
-              name="payment"
               id="debit"
               value="DEBIT"
-              onChange={(e) => setPaymentType(e.target.value)}
             />
             <label htmlFor="debit">
               <BankIcon size={16} />
@@ -96,11 +147,12 @@ export function Checkout() {
             </label>
 
             <input
+              {...register("payment", {
+                required: "Escolha um método de pagamento",
+              })}
               type="radio"
-              name="payment"
               id="money"
               value="MONEY"
-              onChange={(e) => setPaymentType(e.target.value)}
             />
             <label htmlFor="money">
               {" "}

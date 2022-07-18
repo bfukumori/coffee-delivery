@@ -43,26 +43,26 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
         items: state.items.filter((item) => item.id !== payload.id),
       };
 
-    // case "DECREMENT_ITEM":
-    //   if (itemInCart) {
-    //     itemInCart.quantity -= 1;
-    //     if (itemInCart.quantity <= 0) {
-    //       return {
-    //         ...state,
-    //         items: state.items.filter((item) => item.id !== payload.id),
-    //       };
-    //     }
-    //     return {
-    //       ...state,
-    //     };
-    //   }
-    // case "INCREMENT_ITEM":
-    //   if (itemInCart) {
-    //     itemInCart.quantity += 1;
-    //     return {
-    //       ...state,
-    //     };
-    //   }
+    case "DECREMENT_ITEM":
+      if (itemInCart) {
+        itemInCart.quantity -= 1;
+        if (itemInCart.quantity <= 0) {
+          return {
+            ...state,
+            items: state.items.filter((item) => item.id !== payload.id),
+          };
+        }
+        return {
+          ...state,
+        };
+      }
+    case "INCREMENT_ITEM":
+      if (itemInCart) {
+        itemInCart.quantity += 1;
+      }
+      return {
+        ...state,
+      };
 
     default:
       return state;
