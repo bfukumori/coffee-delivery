@@ -12,25 +12,39 @@ type apiCEPResponse = {
   statusText: string;
 };
 
+type UseCepHookErrorResponse = {
+  message: string;
+  ok: boolean;
+  status: number;
+  statusText: string;
+};
+
 interface UseCepHookResponse {
   cepInfo: apiCEPResponse;
   loading: boolean;
+  error: UseCepHookErrorResponse | null;
 }
 
 export const useCep = (cep: string): UseCepHookResponse => {
   const [cepInfo, setCepInfo] = useState<apiCEPResponse>({} as apiCEPResponse);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<UseCepHookErrorResponse | null>(null);
 
   const cepFormatted = useMemo(() => {
     return cep.replace(/\W/g, "");
   }, [cep]);
 
-  const viaCEPUrl = `https://ws.apicep.com/cep/${cepFormatted}.json`;
+  const apiCEPUrl = `https://ws.apicep.com/cep/${cepFormatted}.json`;
 
   const fetchCep = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get(viaCEPUrl);
+      const response = await api.get(apiCEPUrl);
+
+      if (response.data.status !== 200) {
+        setError(response.data);
+        setLoading(false);
+      }
       setCepInfo(response.data);
       setLoading(false);
     } catch (err) {
@@ -45,5 +59,5 @@ export const useCep = (cep: string): UseCepHookResponse => {
     }
   }, [fetchCep]);
 
-  return { cepInfo, loading };
+  return { cepInfo, loading, error };
 };

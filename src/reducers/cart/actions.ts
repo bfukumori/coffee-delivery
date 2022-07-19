@@ -1,8 +1,11 @@
+import { CartState } from "./reducer";
+
 export enum TypeActions {
   ADD_TO_CART = "ADD_TO_CART",
   REMOVE_FROM_CART = "REMOVE_FROM_CART",
   INCREMENT_ITEM = "INCREMENT_ITEM",
   DECREMENT_ITEM = "DECREMENT_ITEM",
+  RESET_CART = "RESET_CART",
 }
 
 export function addToCartAction(id: string, quantity: number) {
@@ -19,4 +22,8 @@ export function incrementItemAction(id: string) {
 
 export function decrementItemAction(id: string) {
   return { type: TypeActions.DECREMENT_ITEM, payload: { id } };
+}
+
+export function resetCartAction(initialValue: CartState) {
+  return { type: TypeActions.RESET_CART, payload: initialValue };
 }

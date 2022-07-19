@@ -14,7 +14,7 @@ export function Header() {
       </Link>
       <div>
         <MapIcon size={24} weight="fill" />
-        <span>Porto Alegre, RS</span>
+        <span>São Paulo, SP</span> {/*Could implement some geolocation here*/}
       </div>
       <Cart />
     </HeaderContainer>

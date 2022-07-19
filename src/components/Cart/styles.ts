@@ -8,8 +8,6 @@ export const CartContainer = styled(Link)`
   align-items: center;
   justify-content: center;
 
-  width: 2.375rem;
-  height: 2.375rem;
   padding: 0.5rem;
   border-radius: 6px;
   border: none;

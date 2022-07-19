@@ -1,4 +1,6 @@
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TimerIcon } from "../Home/styles";
 import {
   DeliveryIcon,
@@ -8,7 +10,36 @@ import {
   SuccessContentCard,
 } from "./style";
 
+interface IOrder {
+  address: string;
+  address_number: string;
+  address_complement?: string;
+  address_neighborhood: string;
+  city: string;
+  state: string;
+  payment: string;
+}
+
 export function Success() {
+  const [order, setOrder] = useState<IOrder>({} as IOrder);
+  const navigate = useNavigate();
+
+  function getOrderFromLocalStorage() {
+    const storedOrderAsJSON = localStorage.getItem(
+      "@coffee-delivery:order-info-1.0.0"
+    );
+    if (storedOrderAsJSON) {
+      const parsedOrder = JSON.parse(storedOrderAsJSON);
+      setOrder(parsedOrder);
+    } else {
+      navigate("/", { replace: true });
+    }
+  }
+
+  useEffect(() => {
+    getOrderFromLocalStorage();
+  }, []);
+
   return (
     <SuccessContainer>
       <SuccessContent>
@@ -19,9 +50,17 @@ export function Success() {
             <DeliveryIcon as={MapPin} weight="fill" />
             <div>
               <p>
-                Entrega em <span>Rua João Daniel Martinelli, 102</span>
+                Entrega em{" "}
+                <span>
+                  {order.address}, {order.address_number}
+                  {order.address_complement
+                    ? ` ${order.address_complement}`
+                    : ""}
+                </span>
               </p>
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>
+                {order.address_neighborhood} - {order.city}, {order.state}
+              </p>
             </div>
           </div>
           <div>
@@ -35,7 +74,7 @@ export function Success() {
             <PaymentIcon as={CurrencyDollar} weight="fill" />
             <div>
               <p>Pagamento na entrega</p>
-              <p>Cartão de Crédito</p>
+              <p>{order.payment}</p>
             </div>
           </div>
         </SuccessContentCard>

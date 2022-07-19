@@ -7,13 +7,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  @media screen and (min-width: 976px) {
-    html {
-        margin-left: calc(100vw - 100%);
-        margin-right: 0;
-    }
-  }
 
+  html {
+    scrollbar-gutter: stable both-edges;
+  }
+  
   @media(max-width: 720px) {
     html {
       font-size: 87.5%;

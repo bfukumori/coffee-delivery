@@ -1,9 +1,9 @@
 import { ShoppingCart } from "phosphor-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AddOrRemoveToCart } from "../../components/AddOrRemoveToCart";
-import { CartContext } from "../../contexts/CartContex";
+import { CartContext, initialValue } from "../../contexts/CartContex";
 import { formatPrice } from "../../helper/formatPrice";
 import { useCep } from "../../hooks/useCep";
 import {
@@ -37,21 +37,56 @@ interface IFormInput {
   payment: string;
 }
 
+enum TypePayment {
+  CREDIT = "Cartão de crédito",
+  DEBIT = "Cartão de débito",
+  MONEY = "Dinheiro",
+}
+
 export function Checkout() {
-  const { cart, totalItemsInCart, totalPriceInCart } = useContext(CartContext);
+  const { cart, resetCart, totalItemsInCart, totalPriceInCart } =
+    useContext(CartContext);
   const [cep, setCep] = useState("");
   const [shippingFee, setShippingFee] = useState(0);
 
-  const { cepInfo, loading } = useCep(cep);
+  const { cepInfo, loading, error } = useCep(cep);
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, setValue, reset } = useForm<IFormInput>({
+    defaultValues: {
+      address: "",
+      address_number: "",
+      address_complement: "",
+      address_neighborhood: "",
+      city: "",
+      state: "",
+      payment: "",
+    },
+  });
 
   const totalAmountPlusFee = totalPriceInCart + shippingFee;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    if (error) {
+      return;
+    }
+    const orderJSON = JSON.stringify(data);
+
+    localStorage.setItem("@coffee-delivery:order-info-1.0.0", orderJSON);
+    reset();
+    navigate("/success", { replace: true });
+
+    localStorage.removeItem("@coffee-delivery:cart-state-1.0.0");
+
+    resetCart(initialValue);
+  };
+
+  useEffect(() => {
+    setValue("address", cepInfo.address);
+    setValue("address_neighborhood", cepInfo.district);
+    setValue("city", cepInfo.city);
+    setValue("state", cepInfo.state);
+  }, [cepInfo]);
 
   return (
     <CheckoutContainer formIsHidden={cart.items.length === 0}>
@@ -72,40 +107,36 @@ export function Checkout() {
           <InputFieldsWrapper>
             <input
               {...register("cep", {
-                value: cep,
-                onBlur: (e) => setCep(e.target.value),
+                minLength: 8,
               })}
               placeholder="CEP"
+              maxLength={8}
+              onBlur={(e) => setCep(e.target.value)}
+              required
             />
+            <input {...register("address")} placeholder="Rua" />
             <input
-              {...register("address", {
-                value: cepInfo.address,
+              type="number"
+              {...register("address_number", {
+                required: true,
               })}
-              placeholder="Rua"
+              placeholder="Número"
             />
-            <input {...register("address_number")} placeholder="Número" />
             <input
               {...register("address_complement")}
               placeholder="Complemento"
             />
             <input
-              {...register("address_neighborhood", {
-                value: cepInfo.district,
-              })}
+              {...register("address_neighborhood", { disabled: true })}
               placeholder="Bairro"
             />
             <input
-              {...register("city", {
-                value: cepInfo.city,
-              })}
+              {...register("city", { disabled: true })}
               placeholder="Cidade"
             />
             <input
-              {...register("state", {
-                value: cepInfo.state,
-              })}
+              {...register("state", { disabled: true })}
               placeholder="UF"
-              maxLength={2}
             />
           </InputFieldsWrapper>
         </CheckoutForm>
@@ -126,7 +157,8 @@ export function Checkout() {
               })}
               type="radio"
               id="credit"
-              value="CREDIT"
+              value={TypePayment.CREDIT}
+              required
             />
             <label htmlFor="credit">
               <CreditCardIcon size={16} />
@@ -134,12 +166,10 @@ export function Checkout() {
             </label>
 
             <input
-              {...register("payment", {
-                required: "Escolha um método de pagamento",
-              })}
+              {...register("payment")}
               type="radio"
               id="debit"
-              value="DEBIT"
+              value={TypePayment.DEBIT}
             />
             <label htmlFor="debit">
               <BankIcon size={16} />
@@ -147,12 +177,10 @@ export function Checkout() {
             </label>
 
             <input
-              {...register("payment", {
-                required: "Escolha um método de pagamento",
-              })}
+              {...register("payment")}
               type="radio"
               id="money"
-              value="MONEY"
+              value={TypePayment.MONEY}
             />
             <label htmlFor="money">
               {" "}

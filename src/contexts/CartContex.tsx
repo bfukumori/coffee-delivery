@@ -6,6 +6,7 @@ import {
   decrementItemAction,
   incrementItemAction,
   removeFromCartAction,
+  resetCartAction,
 } from "../reducers/cart/actions";
 import { CartReducer, CartState } from "../reducers/cart/reducer";
 
@@ -17,6 +18,7 @@ interface CartContextData {
   removeFromCart: (id: string) => void;
   incrementItem: (id: string) => void;
   decrementItem: (id: string) => void;
+  resetCart: (initialValue: CartState) => void;
 }
 
 export interface Cart {
@@ -38,7 +40,7 @@ interface CartContextProviderProps {
   children: ReactNode;
 }
 
-const initialValue: CartState = {
+export const initialValue: CartState = {
   id: uuidV4(),
   items: [],
 };
@@ -87,6 +89,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(decrementItemAction(id));
   }
 
+  function resetCart(initialValue: CartState) {
+    dispatch(resetCartAction(initialValue));
+  }
+
   useEffect(() => {
     const stateJSON = JSON.stringify(cart);
     if (cart.items.length !== 0) {
@@ -106,6 +112,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         removeFromCart,
         incrementItem,
         decrementItem,
+        resetCart,
       }}
     >
       {children}

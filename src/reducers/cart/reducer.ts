@@ -23,14 +23,14 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
 
   switch (type) {
     case "ADD_TO_CART":
-      if (itemInCart && payload.quantity) {
+      if (itemInCart && payload && payload.quantity) {
         itemInCart.quantity += payload.quantity;
         return {
           ...state,
         };
       }
       const itemInfo = data.find((item) => item.id === payload.id);
-      if (itemInfo && payload.quantity) {
+      if (itemInfo && payload && payload.quantity) {
         return {
           ...state,
           items: [...state.items, { ...itemInfo, quantity: payload.quantity }],
@@ -62,6 +62,12 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         ...state,
+      };
+
+    case "RESET_CART":
+      return {
+        ...state,
+        items: [],
       };
 
     default:
