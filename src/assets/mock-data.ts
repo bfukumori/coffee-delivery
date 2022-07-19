@@ -1,3 +1,18 @@
+import americano from "./images/americano.png";
+import arabe from "./images/arabe.png";
+import cafeComLeite from "./images/cafe-com-leite.png";
+import cafeGelado from "./images/cafe-gelado.png";
+import capuccino from "./images/capuccino.png";
+import chocolateQuente from "./images/chocolate-quente.png";
+import cubano from "./images/cubano.png";
+import expressoCremoso from "./images/expresso-cremoso.png";
+import expresso from "./images/expresso.png";
+import havaiano from "./images/havaiano.png";
+import irlandes from "./images/irlandes.png";
+import latte from "./images/latte.png";
+import macchiato from "./images/macchiato.png";
+import mocaccino from "./images/mocaccino.png";
+
 export interface Coffee {
   id: string;
   title: string;
@@ -22,7 +37,7 @@ export const data: Coffee[] = [
     description: "O tradicional café feito com água quente e grãos moídos",
     type: [CoffeeType.TRADICIONAL],
     unitPrice: 9.9,
-    img: "/src/assets/images/expresso.png",
+    img: expresso,
   },
   {
     id: "2",
@@ -30,7 +45,7 @@ export const data: Coffee[] = [
     description: "Expresso diluído, menos intenso que o tradicional",
     type: [CoffeeType.TRADICIONAL],
     unitPrice: 9.9,
-    img: "./src/assets/images/americano.png",
+    img: americano,
   },
   {
     id: "3",
@@ -38,7 +53,7 @@ export const data: Coffee[] = [
     description: "Café expresso tradicional com espuma cremosa",
     type: [CoffeeType.TRADICIONAL],
     unitPrice: 9.9,
-    img: "./src/assets/images/expresso-cremoso.png",
+    img: expressoCremoso,
   },
   {
     id: "4",
@@ -46,7 +61,7 @@ export const data: Coffee[] = [
     description: "Bebida preparada com café expresso e cubos de gelo",
     type: [CoffeeType.TRADICIONAL, CoffeeType.GELADO],
     unitPrice: 9.9,
-    img: "./src/assets/images/cafe-gelado.png",
+    img: cafeGelado,
   },
   {
     id: "5",
@@ -54,7 +69,7 @@ export const data: Coffee[] = [
     description: "Meio a meio de expresso tradicional com leite vaporizado",
     type: [CoffeeType.TRADICIONAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/cafe-com-leite.png",
+    img: cafeComLeite,
   },
   {
     id: "6",
@@ -63,7 +78,7 @@ export const data: Coffee[] = [
       "Uma dose de café expresso com o dobro de leite e espuma cremosa",
     type: [CoffeeType.TRADICIONAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/latte.png",
+    img: latte,
   },
   {
     id: "7",
@@ -72,7 +87,7 @@ export const data: Coffee[] = [
       "Bebida com canela feita de doses iguais de café, leite e espuma",
     type: [CoffeeType.TRADICIONAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/capuccino.png",
+    img: capuccino,
   },
   {
     id: "8",
@@ -81,7 +96,7 @@ export const data: Coffee[] = [
       "Café expresso misturado com um pouco de leite quente e espuma",
     type: [CoffeeType.TRADICIONAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/macchiato.png",
+    img: macchiato,
   },
   {
     id: "9",
@@ -89,7 +104,7 @@ export const data: Coffee[] = [
     description: "Café expresso com calda de chocolate, pouco leite e espuma",
     type: [CoffeeType.TRADICIONAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/mocaccino.png",
+    img: mocaccino,
   },
   {
     id: "10",
@@ -97,7 +112,7 @@ export const data: Coffee[] = [
     description: "Bebida feita com chocolate dissolvido no leite quente e café",
     type: [CoffeeType.ESPECIAL, CoffeeType.COM_LEITE],
     unitPrice: 9.9,
-    img: "./src/assets/images/chocolate-quente.png",
+    img: chocolateQuente,
   },
   {
     id: "11",
@@ -106,7 +121,7 @@ export const data: Coffee[] = [
       "Drink gelado de café expresso com rum, creme de leite e hortelã",
     type: [CoffeeType.ESPECIAL, CoffeeType.ALCOOLICO, CoffeeType.GELADO],
     unitPrice: 9.9,
-    img: "./src/assets/images/cubano.png",
+    img: cubano,
   },
   {
     id: "12",
@@ -114,7 +129,7 @@ export const data: Coffee[] = [
     description: "Bebida adocicada preparada com café e leite de coco",
     type: [CoffeeType.ESPECIAL],
     unitPrice: 9.9,
-    img: "./src/assets/images/havaiano.png",
+    img: havaiano,
   },
   {
     id: "13",
@@ -122,7 +137,7 @@ export const data: Coffee[] = [
     description: "Bebida preparada com grãos de café árabe e especiarias",
     type: [CoffeeType.ESPECIAL],
     unitPrice: 9.9,
-    img: "./src/assets/images/arabe.png",
+    img: arabe,
   },
   {
     id: "14",
@@ -130,6 +145,6 @@ export const data: Coffee[] = [
     description: "Bebida a base de café, uísque irlandês, açúcar e chantilly",
     type: [CoffeeType.ESPECIAL, CoffeeType.ALCOOLICO],
     unitPrice: 9.9,
-    img: "./src/assets/images/irlandes.png",
+    img: irlandes,
   },
 ];
