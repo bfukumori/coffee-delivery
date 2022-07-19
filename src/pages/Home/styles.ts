@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface HeroBackgroundProps {
+  img: string;
+}
+
 export const HeroContainer = styled.section`
   display: flex;
   justify-content: space-between;
@@ -8,8 +12,8 @@ export const HeroContainer = styled.section`
   position: relative;
 `;
 
-export const HeroBackground = styled.div`
-  background: url("./src/assets/hero-background.svg") center no-repeat;
+export const HeroBackground = styled.div<HeroBackgroundProps>`
+  background: url(${(props) => props.img}) center no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;

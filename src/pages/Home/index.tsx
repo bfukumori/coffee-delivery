@@ -13,13 +13,16 @@ import {
   HeroImage,
 } from "./styles";
 
+import herobg from "../../assets/hero-background.svg";
+import heroimg from "../../assets/images/Hero.png";
+
 import { data } from "../../assets/mock-data";
 
 export function Home() {
   return (
     <>
       <HeroContainer>
-        <HeroBackground />
+        <HeroBackground img={herobg} />
         <HeroContent>
           <h1>Encontre o café perfeito para qualquer hora do dia</h1>
           <p>
@@ -47,7 +50,7 @@ export function Home() {
         </HeroContent>
         <HeroImage>
           <img
-            src="./src/assets/images/Hero.png"
+            src={heroimg}
             alt="Imagem de um copo preto e branco de café com a escrita Coffee Delivery e um fundo amarelo com sementes e pó de café torrado"
           />
         </HeroImage>
