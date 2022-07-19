@@ -10,7 +10,7 @@ import {
   SuccessContentCard,
 } from "./style";
 
-import successImg from "../../assets/images/Success.png";
+import successImg from "../../assets/success.png";
 
 interface IOrder {
   address: string;

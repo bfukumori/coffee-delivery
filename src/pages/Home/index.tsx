@@ -14,7 +14,7 @@ import {
 } from "./styles";
 
 import heroBg from "../../assets/hero-background.svg";
-import heroImg from "../../assets/images/Hero.png";
+import heroImg from "../../assets/hero.png";
 
 import { data } from "../../assets/mock-data";
 
