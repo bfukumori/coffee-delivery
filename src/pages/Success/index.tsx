@@ -10,6 +10,8 @@ import {
   SuccessContentCard,
 } from "./style";
 
+import successImg from "../../assets/images/Success.png";
+
 interface IOrder {
   address: string;
   address_number: string;
@@ -80,7 +82,7 @@ export function Success() {
         </SuccessContentCard>
       </SuccessContent>
       <img
-        src="./src/assets/images/Success.png"
+        src={successImg}
         alt="Entregador com camiseta amarela e calça verde dirigindo uma motocicleta roxa com um pacote na garupa"
       />
     </SuccessContainer>

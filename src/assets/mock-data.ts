@@ -22,7 +22,7 @@ export const data: Coffee[] = [
     description: "O tradicional café feito com água quente e grãos moídos",
     type: [CoffeeType.TRADICIONAL],
     unitPrice: 9.9,
-    img: "./src/assets/images/expresso.png",
+    img: "/src/assets/images/expresso.png",
   },
   {
     id: "2",
