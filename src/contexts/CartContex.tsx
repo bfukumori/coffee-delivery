@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
+import toast from "react-hot-toast";
 import { v4 as uuidV4 } from "uuid";
 import { CoffeeType } from "../assets/mock-data";
 import {
@@ -76,6 +77,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   function addToCart(id: string, quantity: number) {
     dispatch(addToCartAction(id, quantity));
+    toast.success("Item added.");
   }
   function removeFromCart(id: string) {
     dispatch(removeFromCartAction(id));

@@ -1,4 +1,5 @@
 import { Coffee, Package, ShoppingCartSimple, Timer } from "phosphor-react";
+import { Toaster } from "react-hot-toast";
 import { Card } from "../../components/Card";
 import {
   CoffeePortfolioContainer,
@@ -21,6 +22,7 @@ import { data } from "../../assets/mock-data";
 export function Home() {
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <HeroContainer>
         <HeroBackground img={heroBg} />
         <HeroContent>

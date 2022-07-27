@@ -19,18 +19,20 @@ export interface CartState {
 
 export function CartReducer(state: CartState, action: CartAction): CartState {
   const { type, payload } = action;
-  const itemInCart = state.items.find((item) => item.id === payload.id);
+  const tempCartItems = state.items.map((item) => ({ ...item }));
+  const itemInCart = tempCartItems.find((item) => item.id === payload.id);
 
   switch (type) {
     case "ADD_TO_CART":
-      if (itemInCart && payload && payload.quantity) {
+      if (itemInCart && payload.quantity) {
         itemInCart.quantity += payload.quantity;
         return {
           ...state,
+          items: tempCartItems,
         };
       }
       const itemInfo = data.find((item) => item.id === payload.id);
-      if (itemInfo && payload && payload.quantity) {
+      if (itemInfo && payload.quantity) {
         return {
           ...state,
           items: [...state.items, { ...itemInfo, quantity: payload.quantity }],
@@ -40,7 +42,7 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== payload.id),
+        items: tempCartItems.filter((item) => item.id !== payload.id),
       };
 
     case "DECREMENT_ITEM":
@@ -49,11 +51,12 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
         if (itemInCart.quantity <= 0) {
           return {
             ...state,
-            items: state.items.filter((item) => item.id !== payload.id),
+            items: tempCartItems.filter((item) => item.id !== payload.id),
           };
         }
         return {
           ...state,
+          items: tempCartItems,
         };
       }
     case "INCREMENT_ITEM":
@@ -62,6 +65,7 @@ export function CartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         ...state,
+        items: tempCartItems,
       };
 
     case "RESET_CART":
